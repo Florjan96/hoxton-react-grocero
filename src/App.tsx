@@ -1,6 +1,10 @@
 import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { Store } from '../components/store'
+import { Cart } from '../components/cart'
+
+
 
 function getItemImagePath(item: any) {
   let id = String(item.id).padStart(3, "0");
@@ -85,67 +89,9 @@ function App() {
 
   return (
     <div className="App">
-      <header id="store">
-        <h1>Grocero</h1>
-
-        <ul className="item-list store--item-list">
-          {store.map((item) => (
-            <li>
-              <div className="store--item-icon">
-                <img alt="beetroot" src={getItemImagePath(item)} />
-              </div>
-              <button onClick={function(){
-                increaseQuantity(item)
-              }}>Add to cart({item.stock})</button>
-            </li>
-          ))}
-        </ul>
-      </header>
-
-      <main id="cart">
-        <h2>Your Cart</h2>
-
-        <div className="cart--item-list-container">
-          <ul className="item-list cart--item-list">
-            {card.map((item) => (
-              <li>
-                <img
-                  className="cart--item-icon"
-                  src={getItemImagePath(item)}
-                  alt="carrot"
-                />
-
-                <p>{item.name}</p>
-                <button
-                  className="quantity-btn remove-btn center"
-                  onClick={function () {
-                    decreaseQuantity(item);
-                  }}
-                >
-                  -
-                </button>
-                <span className="quantity-text center">{item.inCart}</span>
-                <button
-                  className="quantity-btn add-btn center"
-                  onClick={function () {
-                    increaseQuantity(item);
-                  }}
-                ></button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="total-section">
-          <div>
-            <h3>Total</h3>
-          </div>
-
-          <div>
-            <span className="total-number">{totalPrice().toFixed(1)}$</span>
-          </div>
-        </div>
-      </main>
+     <Store store={store} getItemImagePath={getItemImagePath} increaseQuantity={increaseQuantity}/>
+<Cart card={card} getItemImagePath={getItemImagePath} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity} totalPrice={totalPrice} />
+     
     </div>
   );
 }
