@@ -62,7 +62,7 @@ function App() {
     //We should make a copy of db.We can't mutate the original db.
     let storeCopy = structuredClone(store);
 
-    let match = storeCopy.find((target) => target.id === item.id);
+    let match = storeCopy.find((target:any) => target.id === item.id);
 
     match.inCart++;
     match.stock--;
